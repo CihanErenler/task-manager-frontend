@@ -50,7 +50,9 @@ const Header = () => {
       <Container>
         <StyledFlex>
           <ImageContainer>
-            <Image src={logo} />
+            <Link to="/">
+              <Image src={logo} />
+            </Link>
           </ImageContainer>
           <StyledNav>
             <StyledLink to="/about">About</StyledLink>

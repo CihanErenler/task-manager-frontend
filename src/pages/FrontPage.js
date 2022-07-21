@@ -13,6 +13,8 @@ const sectionStyles = {
 };
 
 const FlexDiv = styled.div`
+  position: relative;
+  z-index: 10;
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100%;
@@ -81,7 +83,9 @@ const FrontPage = () => {
               Create <span>awesome</span> projects
             </h1>
             <h4>A perfect project development tool for your team</h4>
-            <Button long={true}>Start Now</Button>
+            <Button link={true} long={true} to="/login">
+              Start Now
+            </Button>
           </div>
           <div>
             <StyledImage src={hero} />

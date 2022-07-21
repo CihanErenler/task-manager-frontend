@@ -10,7 +10,7 @@ export const variants = {
   exit: { opacity: 0 },
 };
 
-export const transition = { type: "linear", duration: 0.4 };
+export const transition = { type: "linear", duration: 0.3 };
 
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
@@ -32,7 +32,6 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   const [currentTheme, setCurrentTheme] = useState(false);
   const theme = currentTheme ? themes.dark : themes.default;
-  console.log(theme);
 
   return (
     <>

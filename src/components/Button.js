@@ -1,9 +1,8 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
-const StyledLink = styled(Link)`
-  width: 150px;
+const CommonStyles = css`
   height: 40px;
   display: grid;
   place-items: center;
@@ -25,33 +24,35 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const StyledButton = styled.button`
+const StyledLink = styled(Link)`
+  ${CommonStyles};
   width: 150px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  background-color: ${(props) => props.theme.primary};
-  color: ${(props) => props.theme.buttonColor};
-  border: none;
-  border-radius: 10px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  :hover {
-    background-color: ${(props) => props.theme.buttonHover};
-  }
-
-  :focus {
-    box-shadow: 0 0 0 4px ${(props) => props.theme.buttonFocus};
-  }
 `;
 
-const StyledLongButton = styled(StyledButton)`
-  width: 240px !important;
+const StyledButton = styled.button`
+  ${CommonStyles}
+  width: 150px;
+`;
+
+const StyledLongButton = styled.button`
+  ${CommonStyles}
+  width: 240px;
+`;
+
+const StyledLongLink = styled(Link)`
+  ${CommonStyles}
+  width: 240px;
 `;
 
 const Button = ({ children, action, link, to, long }) => {
+  if (link && long) {
+    return (
+      <StyledLongLink to={to} onClick={action}>
+        {children}
+      </StyledLongLink>
+    );
+  }
+
   if (link) {
     return <StyledLink to={to}>{children}</StyledLink>;
   }
