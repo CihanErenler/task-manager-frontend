@@ -44,8 +44,13 @@ const StyledLongLink = styled(Link)`
   width: 240px;
 `;
 
-const Button = ({ children, action, link, to, long }) => {
-  if (link && long) {
+const FullButton = styled.button`
+  ${CommonStyles}
+  width: 100%;
+`;
+
+const Button = ({ children, action, link, to, large, full, type }) => {
+  if (link && large) {
     return (
       <StyledLongLink to={to} onClick={action}>
         {children}
@@ -57,11 +62,27 @@ const Button = ({ children, action, link, to, long }) => {
     return <StyledLink to={to}>{children}</StyledLink>;
   }
 
-  if (long) {
-    <StyledLongButton onClick={action}>{children}</StyledLongButton>;
+  if (large) {
+    return (
+      <StyledLongButton type={type} onClick={action}>
+        {children}
+      </StyledLongButton>
+    );
   }
 
-  return <StyledButton onClick={action}>{children}</StyledButton>;
+  if (full) {
+    return (
+      <FullButton type={type} onClick={action}>
+        {children}
+      </FullButton>
+    );
+  }
+
+  return (
+    <StyledButton type={type} onClick={action}>
+      {children}
+    </StyledButton>
+  );
 };
 
 export default Button;
