@@ -6,7 +6,7 @@ import CheckboxLabel from "./Checkbox/CheckboxLabel";
 import Checkbox from "./Checkbox/Checkbox";
 import CustomLink from "./CustomLink";
 import Button from "./Button";
-import { Link } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 
 const Div = styled.div`
   background-color: ${(props) => props.theme.bg1};
@@ -43,26 +43,32 @@ const LinkDiv = styled.div`
 `;
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isRemember, setIsRemember] = useState(false);
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    console.log("Clicked");
-  };
+  const {
+    updateUpdatePage,
+    email,
+    password,
+    isRemember,
+    handleLogin,
+    handleIsRemember,
+  } = useAuthContext();
 
   return (
     <Div>
       <h1>Login</h1>
       <p>Login to your account to see your projects</p>
       <form onSubmit={handleLogin}>
-        <CustomInput onchange={setEmail} value={email} placeholder="Email" />
         <CustomInput
-          onchange={setPassword}
+          onchange={updateUpdatePage}
+          value={email}
+          placeholder="Email"
+          name="email"
+        />
+        <CustomInput
+          onchange={updateUpdatePage}
           value={password}
           placeholder="Password"
           password
+          name="password"
         />
         <LinkDiv>
           <CheckboxContainer>
@@ -71,7 +77,7 @@ const Login = () => {
               label="Remember me"
               id="remember-me"
               value={isRemember}
-              onchange={setIsRemember}
+              onchange={handleIsRemember}
             />
           </CheckboxContainer>
           <CustomLink to="/reset-password">Forgot your password?</CustomLink>

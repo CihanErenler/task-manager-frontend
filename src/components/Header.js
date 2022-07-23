@@ -56,7 +56,7 @@ const Header = () => {
           </ImageContainer>
           <StyledNav>
             <StyledLink to="/about">About</StyledLink>
-            <Button link to="/signup">
+            <Button link to="/register">
               Sign up
             </Button>
           </StyledNav>

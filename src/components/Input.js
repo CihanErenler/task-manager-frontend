@@ -38,7 +38,7 @@ const TextInput = styled.input`
   }
 `;
 
-const CustomInput = ({ value, onchange, placeholder, password }) => {
+const CustomInput = ({ value, onchange, placeholder, password, name }) => {
   const [show, setShow] = useState();
 
   const handleShow = () => {
@@ -49,10 +49,11 @@ const CustomInput = ({ value, onchange, placeholder, password }) => {
     return (
       <Section>
         <TextInput
-          onChange={(e) => onchange(e.target.value)}
+          onChange={onchange}
           value={value}
           type={show ? "text" : "password"}
           placeholder={placeholder}
+          name={name}
         />
         {show ? (
           <BiHide onClick={handleShow} />
@@ -66,10 +67,11 @@ const CustomInput = ({ value, onchange, placeholder, password }) => {
   return (
     <Section>
       <TextInput
-        onChange={(e) => onchange(e.target.value)}
+        onChange={onchange}
         value={value}
         type="text"
         placeholder={placeholder}
+        name={name}
       />
     </Section>
   );
