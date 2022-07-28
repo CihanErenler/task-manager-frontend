@@ -9,7 +9,7 @@ const CommonStyles = css`
   background-color: ${(props) => props.theme.primary};
   color: ${(props) => props.theme.buttonColor};
   border: none;
-  border-radius: 10px;
+  border-radius: 6px;
   font-size: 18px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -21,6 +21,10 @@ const CommonStyles = css`
 
   :focus {
     box-shadow: 0 0 0 4px ${(props) => props.theme.buttonFocus};
+  }
+
+  :active {
+    background-color: ${(props) => props.theme.primary};
   }
 `;
 

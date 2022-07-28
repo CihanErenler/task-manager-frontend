@@ -1,23 +1,31 @@
 import React, { useContext, useReducer } from "react";
 import reducer from "../reducers/AuthReducer";
-import { HANDLE_REMEMBER, LOGIN, UPDATE_LOGIN_PAGE } from "../reducerTypes";
+import {
+  HANDLE_LOGIN_ALERT,
+  HANDLE_REMEMBER,
+  LOGIN,
+  RESET_CREDENTIALS,
+  UPDATE_LOGIN_PAGE,
+} from "../reducerTypes";
 
 const AuthContext = React.createContext();
 
 const initialState = {
-  name: "",
-  lastname: "",
-  email: "",
-  password: "",
+  name: { value: "", danger: false },
+  lastname: { value: "", danger: false },
+  email: { value: "", danger: false },
+  password: { value: "", danger: false },
   errMessage: "",
-  showError: false,
+  alert: { show: false, type: "success", message: "" },
   isRemember: false,
 };
 
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log("girdi");
     dispatch({ type: LOGIN });
   };
 
@@ -31,9 +39,24 @@ const AuthProvider = ({ children }) => {
     dispatch({ type: HANDLE_REMEMBER });
   };
 
+  const handleAlert = () => {
+    dispatch({ type: HANDLE_LOGIN_ALERT });
+  };
+
+  const resetCredentials = () => {
+    dispatch({ type: RESET_CREDENTIALS });
+  };
+
   return (
     <AuthContext.Provider
-      value={{ ...state, handleLogin, updateUpdatePage, handleIsRemember }}
+      value={{
+        ...state,
+        handleLogin,
+        updateUpdatePage,
+        handleIsRemember,
+        handleAlert,
+        resetCredentials,
+      }}
     >
       {children}
     </AuthContext.Provider>

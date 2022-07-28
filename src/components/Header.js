@@ -26,7 +26,7 @@ const StyledFlex = styled.div`
 const StyledLink = styled(Link)`
   font-size: 18px;
   color: ${(props) => props.theme.textColor};
-  margin: 0 50px;
+  margin-right: 40px;
   cursor: pointer;
   transition: color 0.3s ease;
 
@@ -55,7 +55,9 @@ const Header = () => {
             </Link>
           </ImageContainer>
           <StyledNav>
+            <StyledLink to="/">Home</StyledLink>
             <StyledLink to="/about">About</StyledLink>
+            <StyledLink to="/login">Login</StyledLink>
             <Button link to="/register">
               Sign up
             </Button>

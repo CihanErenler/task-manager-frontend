@@ -50,7 +50,7 @@ const Div = styled.div`
   }
 `;
 
-const CustomCheckbox = ({ onchange, label, value, id }) => {
+const CustomCheckbox = ({ onchange, value, id }) => {
   const input = useRef(null);
   const handleOnClick = () => {
     onchange(!value);
@@ -63,7 +63,7 @@ const CustomCheckbox = ({ onchange, label, value, id }) => {
         type="checkbox"
         ref={input}
         value={value}
-        onChange={() => onchange(!value)}
+        onChange={onchange}
         checked={value}
       />
       <span onClick={handleOnClick}></span>

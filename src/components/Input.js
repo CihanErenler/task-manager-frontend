@@ -23,7 +23,8 @@ const Section = styled.section`
 const TextInput = styled.input`
   width: 100%;
   height: 45px;
-  border: 1px solid ${(focus) => focus.theme.inputBorder};
+  border: 1px solid
+    ${(props) => (props.danger ? props.theme.danger : props.theme.inputBorder)};
   border-radius: 6px;
   background-color: ${(props) => props.theme.inputBg};
   padding: 0 20px;
@@ -38,7 +39,14 @@ const TextInput = styled.input`
   }
 `;
 
-const CustomInput = ({ value, onchange, placeholder, password, name }) => {
+const CustomInput = ({
+  value,
+  onchange,
+  placeholder,
+  password,
+  name,
+  type,
+}) => {
   const [show, setShow] = useState();
 
   const handleShow = () => {
@@ -49,8 +57,9 @@ const CustomInput = ({ value, onchange, placeholder, password, name }) => {
     return (
       <Section>
         <TextInput
+          danger={value.danger}
           onChange={onchange}
-          value={value}
+          value={value.value}
           type={show ? "text" : "password"}
           placeholder={placeholder}
           name={name}
@@ -67,9 +76,10 @@ const CustomInput = ({ value, onchange, placeholder, password, name }) => {
   return (
     <Section>
       <TextInput
+        danger={value.danger}
         onChange={onchange}
-        value={value}
-        type="text"
+        value={value.value}
+        type={type}
         placeholder={placeholder}
         name={name}
       />

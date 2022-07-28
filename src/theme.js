@@ -11,6 +11,7 @@ const themes = {
     inputBg: "#F3F3F3",
     inputBorder: "#E3E0E0",
     inputBorderFocus: "#639ec9",
+    danger: "#e34444",
   },
   dark: {},
 };
