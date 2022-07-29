@@ -3,53 +3,52 @@ import { motion } from "framer-motion";
 import { variants, transition } from "../App";
 import styled from "styled-components";
 import Register from "../components/Register";
-import Alert from "../components/Alert";
 import { useAuthContext } from "../context/AuthContext";
-import { AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Div = styled.div`
-  background-color: ${(props) => props.theme.bg2};
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	background-color: ${(props) => props.theme.bg2};
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
 
 const sectionStyles = {
-  width: "100vw",
-  height: "calc(100vh - 60px)",
+	width: "100vw",
+	height: "calc(100vh - 60px)",
 };
 
 const RegisterPage = () => {
-  const { alert, handleAlert, resetCredentials } = useAuthContext();
-  useEffect(() => {
-    resetCredentials();
-  }, []);
+	const { currentLocation, resetCredentials } = useAuthContext();
+	const navigate = useNavigate();
 
-  return (
-    <motion.section
-      style={sectionStyles}
-      variants={variants}
-      initial="hidden"
-      animate="enter"
-      exit="exit"
-      transition={transition}
-    >
-      <Div>
-        <Register />
-      </Div>
-      <AnimatePresence>
-        {alert.show ? (
-          <Alert warningType={alert.type} action={handleAlert}>
-            {alert.message}
-          </Alert>
-        ) : (
-          ""
-        )}
-      </AnimatePresence>
-    </motion.section>
-  );
+	useEffect(() => {
+		if (currentLocation === "/login") {
+			navigate("/login");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentLocation]);
+
+	useEffect(() => {
+		resetCredentials();
+	}, []);
+
+	return (
+		<motion.section
+			style={sectionStyles}
+			variants={variants}
+			initial="hidden"
+			animate="enter"
+			exit="exit"
+			transition={transition}
+		>
+			<Div>
+				<Register />
+			</Div>
+		</motion.section>
+	);
 };
 
 export default RegisterPage;
