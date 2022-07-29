@@ -8,7 +8,7 @@ const Section = styled.section`
   align-items: center;
   justify-content: center;
   position: relative;
-  margin-top: 20px;
+  margin-bottom: 20px;
 
   svg {
     position: absolute;

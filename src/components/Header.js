@@ -36,7 +36,7 @@ const StyledLink = styled(Link)`
 `;
 
 const Image = styled.img`
-  width: 120px;
+  width: 130px;
 `;
 
 const StyledNav = styled.nav`

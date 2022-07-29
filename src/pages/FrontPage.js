@@ -65,6 +65,14 @@ const StyledCorner = styled.img`
   bottom: 0;
 `;
 
+const ButtonContainer = styled.div`
+  margin-top: 20px;
+  width: 320px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+`;
+
 const FrontPage = () => {
   return (
     <motion.section
@@ -83,9 +91,14 @@ const FrontPage = () => {
               Create <span>awesome</span> projects
             </h1>
             <h4>A perfect project development tool for your team</h4>
-            <Button link={true} long={true} to="/login">
-              Start Now
-            </Button>
+            <ButtonContainer>
+              <Button link={true} long={true} to="/about">
+                About us
+              </Button>
+              <Button variant="secondary" link={true} long={true} to="/login">
+                Start now
+              </Button>
+            </ButtonContainer>
           </div>
           <div>
             <StyledImage src={hero} />

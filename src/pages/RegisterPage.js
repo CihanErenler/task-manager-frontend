@@ -25,9 +25,7 @@ const RegisterPage = () => {
   const { alert, handleAlert, resetCredentials } = useAuthContext();
   useEffect(() => {
     resetCredentials();
-  });
-
-  useEffect(() => {});
+  }, []);
 
   return (
     <motion.section
@@ -43,8 +41,8 @@ const RegisterPage = () => {
       </Div>
       <AnimatePresence>
         {alert.show ? (
-          <Alert warningType="warning" action={handleAlert}>
-            Please fill in all empty fields
+          <Alert warningType={alert.type} action={handleAlert}>
+            {alert.message}
           </Alert>
         ) : (
           ""

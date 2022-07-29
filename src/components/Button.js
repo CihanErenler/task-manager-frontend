@@ -6,9 +6,13 @@ const CommonStyles = css`
   height: 40px;
   display: grid;
   place-items: center;
-  background-color: ${(props) => props.theme.primary};
-  color: ${(props) => props.theme.buttonColor};
-  border: none;
+  background-color: ${(props) =>
+    props.variant === "secondary" ? props.theme.bg1 : props.theme.primary};
+  color: ${(props) =>
+    props.variant === "secondary"
+      ? props.theme.primary
+      : props.theme.buttonColor};
+  border: 1px solid ${(props) => props.theme.primary};
   border-radius: 6px;
   font-size: 18px;
   cursor: pointer;
@@ -16,7 +20,10 @@ const CommonStyles = css`
   text-decoration: none;
 
   :hover {
-    background-color: ${(props) => props.theme.buttonHover};
+    background-color: ${(props) =>
+      props.variant === "secondary"
+        ? props.theme.bg2
+        : props.theme.buttonHover};
   }
 
   :focus {
@@ -24,7 +31,8 @@ const CommonStyles = css`
   }
 
   :active {
-    background-color: ${(props) => props.theme.primary};
+    background-color: ${(props) =>
+      props.variant === "secondary" ? props.theme.bg1 : props.theme.primary};
   }
 `;
 
@@ -53,22 +61,26 @@ const FullButton = styled.button`
   width: 100%;
 `;
 
-const Button = ({ children, action, link, to, large, full, type }) => {
+const Button = ({ children, action, link, to, large, full, type, variant }) => {
   if (link && large) {
     return (
-      <StyledLongLink to={to} onClick={action}>
+      <StyledLongLink variant to={to} onClick={action}>
         {children}
       </StyledLongLink>
     );
   }
 
   if (link) {
-    return <StyledLink to={to}>{children}</StyledLink>;
+    return (
+      <StyledLink variant={variant} to={to}>
+        {children}
+      </StyledLink>
+    );
   }
 
   if (large) {
     return (
-      <StyledLongButton type={type} onClick={action}>
+      <StyledLongButton variant={variant} type={type} onClick={action}>
         {children}
       </StyledLongButton>
     );
@@ -76,14 +88,14 @@ const Button = ({ children, action, link, to, large, full, type }) => {
 
   if (full) {
     return (
-      <FullButton type={type} onClick={action}>
+      <FullButton variant={variant} type={type} onClick={action}>
         {children}
       </FullButton>
     );
   }
 
   return (
-    <StyledButton type={type} onClick={action}>
+    <StyledButton variant={variant} type={type} onClick={action}>
       {children}
     </StyledButton>
   );

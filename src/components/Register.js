@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import CustomInput from "./Input";
-import CheckboxContainer from "./Checkbox/CheckboxContainer";
-import CheckboxLabel from "./Checkbox/CheckboxLabel";
-import Checkbox from "./Checkbox/Checkbox";
 import CustomLink from "./CustomLink";
 import Button from "./Button";
 import { useAuthContext } from "../context/AuthContext";
@@ -12,7 +9,6 @@ const Div = styled.div`
   background-color: ${(props) => props.theme.bg1};
   padding: 20px;
   border-radius: 10px;
-  height: 390px;
   width: 410px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
@@ -34,28 +30,21 @@ const Div = styled.div`
   }
 `;
 
-const LinkDiv = styled.div`
-  display: flex;
-  align-items: center !important;
-  justify-content: space-between;
-  font-size: 14px;
-  margin: 10px 0 20px;
-`;
-
-const Login = () => {
+const Register = () => {
   const {
-    updateUpdatePage,
+    updateRegisterPage,
+    name,
+    lastname,
     email,
     password,
-    isRemember,
-    handleLogin,
-    handleIsRemember,
+    password2,
+    handleRegister,
   } = useAuthContext();
 
   useEffect(() => {
     const callback = (e) => {
       if (e.key === "Enter") {
-        handleLogin(e);
+        handleRegister(e);
       }
     };
 
@@ -68,45 +57,52 @@ const Login = () => {
 
   return (
     <Div>
-      <h1>Login</h1>
-      <p>Login to your account to see your projects</p>
-      <form onSubmit={handleLogin}>
+      <h1>Sing up</h1>
+      <form onSubmit={handleRegister}>
         <CustomInput
-          onchange={updateUpdatePage}
+          onchange={updateRegisterPage}
+          value={name}
+          placeholder="Name"
+          name="name"
+          type="text"
+        />
+        <CustomInput
+          onchange={updateRegisterPage}
+          value={lastname}
+          placeholder="Lastname"
+          name="lastname"
+          type="text"
+        />
+        <CustomInput
+          onchange={updateRegisterPage}
           value={email}
           placeholder="Email"
           name="email"
           type="email"
         />
         <CustomInput
-          onchange={updateUpdatePage}
+          onchange={updateRegisterPage}
           value={password}
           placeholder="Password"
-          password
           name="password"
+          password
         />
-        <LinkDiv>
-          <CheckboxContainer>
-            <CheckboxLabel id="remember-me">Remember me</CheckboxLabel>
-            <Checkbox
-              label="Remember me"
-              id="remember-me"
-              value={isRemember}
-              onchange={handleIsRemember}
-            />
-          </CheckboxContainer>
-          <CustomLink to="/reset-password">Forgot your password?</CustomLink>
-        </LinkDiv>
+        <CustomInput
+          onchange={updateRegisterPage}
+          value={password2}
+          placeholder="Password again"
+          name="password2"
+          password
+        />
         <Button full type="submit">
-          Login
+          Sign up
         </Button>
       </form>
       <p>
-        Don't have an account yet?{" "}
-        <CustomLink to="/register">Join Colby.io</CustomLink>
+        Already have an account? <CustomLink to="/login">Login</CustomLink>
       </p>
     </Div>
   );
 };
 
-export default Login;
+export default Register;

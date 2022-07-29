@@ -12,7 +12,7 @@ const Div = styled.div`
   background-color: ${(props) => props.theme.bg1};
   padding: 20px;
   border-radius: 10px;
-  height: 390px;
+  height: 400px;
   width: 410px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
@@ -27,6 +27,7 @@ const Div = styled.div`
     text-align: center;
     font-size: 13px;
     color: ${(props) => props.theme.textColorLight};
+    margin-bottom: 20px;
   }
 
   p {
