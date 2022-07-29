@@ -5,7 +5,8 @@ import { FaTimes } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const WarningAlert = styled.section`
-	width: 400px;
+	min-width: 400px;
+	max-width: 100%;
 	height: 60px;
 	border: 1px solid ${(props) => props.theme.inputBorder};
 	position: fixed;
@@ -19,8 +20,9 @@ const WarningAlert = styled.section`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	background-color: ${(props) => props.theme.bg1};
+	background-color: ${(props) => handleColor(props.warningType)};
 	color: ${(props) => props.theme.textColorLight};
+	font-size: 14px;
 	z-index: 9999;
 
 	svg {
@@ -31,18 +33,18 @@ const WarningAlert = styled.section`
 	}
 `;
 
-// const handleColor = (val) => {
-//   switch (val) {
-//     case "warning":
-//       return "#ffc022";
-//     case "danger":
-//       return "#ff5555";
-//     case "info":
-//       return "#3486e7";
-//     default:
-//       return "#48d862";
-//   }
-// };
+const handleColor = (val) => {
+	switch (val) {
+		case "warning":
+			return "#fff8e6";
+		case "danger":
+			return "#fff5f5";
+		case "info":
+			return "#ebf3fc";
+		default:
+			return "#e6ffea";
+	}
+};
 
 const Alert = ({ children, warningType, action }) => {
 	useEffect(() => {

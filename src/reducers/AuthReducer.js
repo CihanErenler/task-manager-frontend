@@ -1,5 +1,4 @@
 import {
-	REMOVE_ALERT,
 	HANDLE_REMEMBER,
 	LOGIN,
 	UPDATE_LOGIN_PAGE,
@@ -7,12 +6,15 @@ import {
 	UPDATE_REGISTER_PAGE,
 	REGISTER,
 	CHECK_REGISTER_INFO,
+	CHECK_LOGIN_INFO,
 	SHOW_ALERT,
+	REMOVE_ALERT,
+	CANCEL_REGISTER_REQUEST,
 } from "../reducerTypes";
 
 // Login
 const AuthReducer = (state, action) => {
-	if (action.type === LOGIN) {
+	if (action.type === CHECK_LOGIN_INFO) {
 		const email = state.email.value;
 		const password = state.password.value;
 
@@ -23,24 +25,37 @@ const AuthReducer = (state, action) => {
 				type: "warning",
 				message: "Please fill in all empty fields",
 			};
-			const email = !email ? { value: "", danger: true } : state.email;
-			const password = !password ? { value: "", danger: true } : state.password;
+			const newEmail = !email ? { value: "", danger: true } : state.email;
+			const newPassport = !password
+				? { value: "", danger: true }
+				: state.password;
 			const newState = {
 				...state,
 				alert,
-				email,
-				password,
+				email: newEmail,
+				password: newPassport,
 			};
 			return newState;
 		}
 
-		if (state.isRemember) {
-			let user = localStorage.getItem("rememberedUser");
-			if (user === null || user == "") {
-				localStorage.setItem("rememberedUser", state.email);
-			}
-		}
-		return state;
+		return { ...state, loginChecked: true, isLoading: true };
+	}
+
+	if (action.type === LOGIN) {
+		const { token } = action.payload;
+		localStorage.setItem("token", token);
+		const newState = {
+			...state,
+			currentLocation: "/dashboard",
+			isLoading: false,
+			loginChecked: false,
+			alert: {
+				show: true,
+				type: "success",
+				message: "Logged in",
+			},
+		};
+		return newState;
 	}
 
 	//Register
@@ -78,13 +93,8 @@ const AuthReducer = (state, action) => {
 
 		return {
 			...state,
-			checkRegister: true,
 			isLoading: true,
-			alert: {
-				show: true,
-				type: "success",
-				message: "Registered successfully",
-			},
+			checkRegister: true,
 		};
 	}
 
@@ -92,7 +102,17 @@ const AuthReducer = (state, action) => {
 		const newState = {
 			...state,
 			currentLocation: "/login",
+			alert: {
+				show: true,
+				type: "success",
+				message: "Registered successfully",
+			},
 		};
+		return newState;
+	}
+
+	if (action.type === CANCEL_REGISTER_REQUEST) {
+		const newState = { ...state, checkRegister: false, isLoading: false };
 		return newState;
 	}
 
@@ -107,6 +127,8 @@ const AuthReducer = (state, action) => {
 			password2: { value: "", danger: false },
 			currentLocation: "",
 			isLoading: false,
+			checkRegister: false,
+			loginChecked: false,
 		};
 		return newState;
 	}
@@ -116,7 +138,7 @@ const AuthReducer = (state, action) => {
 		const { name, value } = action.payload;
 		const newState = {
 			...state,
-			[name]: { value, danger: state[name].danger },
+			[name]: { value, danger: false },
 		};
 		return newState;
 	}
@@ -139,7 +161,7 @@ const AuthReducer = (state, action) => {
 	if (action.type === SHOW_ALERT) {
 		const { show, type, message } = action.payload;
 		const newAlert = { show, type, message };
-		const newState = { ...state, alet: newAlert };
+		const newState = { ...state, alert: newAlert };
 		return newState;
 	}
 

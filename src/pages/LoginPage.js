@@ -4,6 +4,7 @@ import { variants, transition } from "../App";
 import styled from "styled-components";
 import Login from "../components/Login";
 import { useAuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Div = styled.div`
 	background-color: ${(props) => props.theme.bg2};
@@ -20,7 +21,15 @@ const sectionStyles = {
 };
 
 const LoginPage = () => {
-	const { resetCredentials } = useAuthContext();
+	const { resetCredentials, currentLocation } = useAuthContext();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (currentLocation === "/dashboard") {
+			navigate("/dashboard");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentLocation]);
 
 	useEffect(() => {
 		resetCredentials();
