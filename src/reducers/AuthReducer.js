@@ -10,6 +10,7 @@ import {
 	SHOW_ALERT,
 	REMOVE_ALERT,
 	CANCEL_REGISTER_REQUEST,
+	CANCEL_LOGIN_REQUEST,
 } from "../reducerTypes";
 
 // Login
@@ -39,6 +40,11 @@ const AuthReducer = (state, action) => {
 		}
 
 		return { ...state, loginChecked: true, isLoading: true };
+	}
+
+	if (action.type === CANCEL_LOGIN_REQUEST) {
+		const newState = { ...state, loginChecked: false, isLoading: false };
+		return newState;
 	}
 
 	if (action.type === LOGIN) {

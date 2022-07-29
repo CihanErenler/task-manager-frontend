@@ -27,6 +27,7 @@ const LoginPage = () => {
 	useEffect(() => {
 		if (currentLocation === "/dashboard") {
 			navigate("/dashboard");
+			resetCredentials();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentLocation]);
