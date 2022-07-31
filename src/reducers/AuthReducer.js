@@ -11,16 +11,28 @@ import {
 	REMOVE_ALERT,
 	CANCEL_REGISTER_REQUEST,
 	CANCEL_LOGIN_REQUEST,
+	RESTORE_SAVED_USER,
 } from "../reducerTypes";
 
-// Login
 const AuthReducer = (state, action) => {
+	// ============== LOGIN PAGE ===============
+
+	// Handle login inputs
+	if (action.type === UPDATE_LOGIN_PAGE) {
+		const { name, value } = action.payload;
+		const newState = {
+			...state,
+			[name]: { value, danger: false },
+		};
+		return newState;
+	}
+
+	// Check values on login page
 	if (action.type === CHECK_LOGIN_INFO) {
 		const email = state.email.value;
 		const password = state.password.value;
 
 		if (!email || !password) {
-			console.log("empty");
 			const alert = {
 				show: true,
 				type: "warning",
@@ -48,8 +60,14 @@ const AuthReducer = (state, action) => {
 	}
 
 	if (action.type === LOGIN) {
-		const { token } = action.payload;
+		const token = action.payload;
+		console.log(token);
 		localStorage.setItem("token", token);
+
+		if (state.isRemember) {
+			localStorage.setItem("saved_user", state.email.value);
+		}
+
 		const newState = {
 			...state,
 			currentLocation: "/dashboard",
@@ -64,7 +82,26 @@ const AuthReducer = (state, action) => {
 		return newState;
 	}
 
-	//Register
+	// Handle remember me checkbox on login page
+	if (action.type === HANDLE_REMEMBER) {
+		const newState = { ...state, isRemember: !state.isRemember };
+
+		return newState;
+	}
+
+	// ============= REGISTER PAGE ====================
+
+	// Update input fileds
+	if (action.type === UPDATE_REGISTER_PAGE) {
+		const { name, value } = action.payload;
+		const newState = {
+			...state,
+			[name]: { value, danger: false },
+		};
+		return newState;
+	}
+
+	//Check values on register page
 	if (action.type === CHECK_REGISTER_INFO) {
 		let name = state.name.value;
 		let lastname = state.lastname.value;
@@ -73,7 +110,6 @@ const AuthReducer = (state, action) => {
 		let password2 = state.password2.value;
 
 		if (!name || !lastname || !email || !password || !password2) {
-			console.log("girdi");
 			const alert = {
 				show: true,
 				type: "warning",
@@ -104,6 +140,7 @@ const AuthReducer = (state, action) => {
 		};
 	}
 
+	// Redirect to login page after a successfull register
 	if (action.type === REGISTER) {
 		const newState = {
 			...state,
@@ -117,6 +154,7 @@ const AuthReducer = (state, action) => {
 		return newState;
 	}
 
+	// Canvel the register operation after an error
 	if (action.type === CANCEL_REGISTER_REQUEST) {
 		const newState = { ...state, checkRegister: false, isLoading: false };
 		return newState;
@@ -139,23 +177,6 @@ const AuthReducer = (state, action) => {
 		return newState;
 	}
 
-	// Handle login inputs
-	if (action.type === UPDATE_LOGIN_PAGE) {
-		const { name, value } = action.payload;
-		const newState = {
-			...state,
-			[name]: { value, danger: false },
-		};
-		return newState;
-	}
-
-	// Handle remember me checkbox on login page
-	if (action.type === HANDLE_REMEMBER) {
-		const newState = { ...state, isRemember: !state.isRemember };
-
-		return newState;
-	}
-
 	// Handle alert
 	if (action.type === REMOVE_ALERT) {
 		const alert = { show: false, type: "success", message: "" };
@@ -171,12 +192,13 @@ const AuthReducer = (state, action) => {
 		return newState;
 	}
 
-	if (action.type === UPDATE_REGISTER_PAGE) {
-		const { name, value } = action.payload;
+	// Restore saved user from local storage
+	if (action.type === RESTORE_SAVED_USER) {
 		const newState = {
 			...state,
-			[name]: { value, danger: false },
+			email: { value: action.payload, danger: false },
 		};
+
 		return newState;
 	}
 

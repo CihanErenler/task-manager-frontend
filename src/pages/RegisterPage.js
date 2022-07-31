@@ -6,15 +6,6 @@ import Register from "../components/Register";
 import { useAuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const Div = styled.div`
-	background-color: ${(props) => props.theme.bg2};
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`;
-
 const sectionStyles = {
 	width: "100vw",
 	height: "calc(100vh - 60px)",
@@ -51,4 +42,14 @@ const RegisterPage = () => {
 	);
 };
 
+const Div = styled.div`
+	position: relative;
+	background-color: ${(props) => props.theme.bg2};
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+`;
 export default RegisterPage;

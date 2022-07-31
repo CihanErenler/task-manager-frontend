@@ -13,7 +13,7 @@ import {
 	UPDATE_REGISTER_PAGE,
 	CANCEL_REGISTER_REQUEST,
 	CANCEL_LOGIN_REQUEST,
-	SET_LOADING,
+	RESTORE_SAVED_USER,
 } from "../reducerTypes";
 import axios from "axios";
 
@@ -46,19 +46,17 @@ const AuthProvider = ({ children }) => {
 			email: state.email.value,
 			password: state.password.value,
 		};
-		console.log("burada");
 		try {
 			const url = `${process.env.REACT_APP_BASE_URL}/login`;
 			const result = await axios.post(url, loginObj);
-			console.log(result);
+			const token = result.data.token;
 			if (result.status === 200) {
-				const token = result.data.token;
+				console.log(token);
 				dispatch({ type: LOGIN, payload: token });
 			}
 		} catch (error) {
 			dispatch({ type: CANCEL_LOGIN_REQUEST });
 			if (error.response.status === 400) {
-				console.log("girdi");
 				showAlert({
 					show: true,
 					type: "danger",
@@ -120,7 +118,6 @@ const AuthProvider = ({ children }) => {
 		} catch (error) {
 			dispatch({ type: CANCEL_REGISTER_REQUEST });
 			if (error.response.status === 400) {
-				console.log("girdi");
 				showAlert({
 					show: true,
 					type: "danger",
@@ -140,13 +137,19 @@ const AuthProvider = ({ children }) => {
 		dispatch({ type: SHOW_ALERT, payload: alert });
 	};
 
+	const checkSavedUser = () => {
+		const savedUser = localStorage.getItem("saved_user");
+		if (savedUser) {
+			dispatch({ type: RESTORE_SAVED_USER, payload: savedUser });
+		}
+	};
+
 	useEffect(() => {
 		if (state.checkRegister) sendRegisterRequest();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [state.checkRegister]);
 
 	useEffect(() => {
-		console.log(state.loginChecked);
 		if (state.loginChecked) sendLoginRequest();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [state.loginChecked]);
@@ -163,6 +166,7 @@ const AuthProvider = ({ children }) => {
 				showAlert,
 				resetCredentials,
 				updateRegisterPage,
+				checkSavedUser,
 			}}
 		>
 			{children}

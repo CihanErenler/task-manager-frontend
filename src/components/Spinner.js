@@ -1,6 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
+const Spinner = () => {
+	return (
+		<Div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</Div>
+	);
+};
+
 const Div = styled.div`
 	display: inline-flex;
 	position: relative;
@@ -38,16 +49,5 @@ const Div = styled.div`
 		}
 	}
 `;
-
-const Spinner = () => {
-	return (
-		<Div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-		</Div>
-	);
-};
 
 export default Spinner;
