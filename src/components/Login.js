@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CustomInput from "./Input";
 import CheckboxContainer from "./Checkbox/CheckboxContainer";
@@ -7,104 +7,125 @@ import Checkbox from "./Checkbox/Checkbox";
 import CustomLink from "./CustomLink";
 import Button from "./Button";
 import Card from "./Card";
-import { useAuthContext } from "../context/AuthContext";
+import { toast } from "react-toastify";
+
+const initialState = {
+  email: { value: "", danger: false },
+  password: { value: "", danger: false },
+  isLoading: false,
+  isRemembered: false,
+};
 
 const Login = () => {
-	const {
-		updateUpdatePage,
-		email,
-		password,
-		isRemember,
-		handleLogin,
-		handleIsRemember,
-		isLoading,
-	} = useAuthContext();
+  const [state, setState] = useState(initialState);
 
-	useEffect(() => {
-		const callback = (e) => {
-			if (e.key === "Enter") {
-				handleLogin(e);
-			}
-		};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (state.email.value === "" || state.password.value === "") {
+      const email =
+        state.email.value === "" ? { value: "", danger: true } : state.email;
+      const password =
+        state.password.value === ""
+          ? { value: "", danger: true }
+          : state.password;
 
-		document.addEventListener("keypress", callback);
+      const newState = { ...state, email, password };
+      toast.error("Please fill out all empty fields");
+      setState(newState);
+    }
+  };
 
-		return () => {
-			document.removeEventListener("keypress", callback);
-		};
-	}, []);
+  const handleInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    const newState = { ...state, [name]: { value, danger: false } };
+    setState(newState);
+  };
 
-	return (
-		<Card width="450px" height="405px">
-			<Div>
-				<h1>Login</h1>
-				<p>Login to your account to see your projects</p>
-				<form onSubmit={handleLogin}>
-					<CustomInput
-						onchange={updateUpdatePage}
-						value={email}
-						placeholder="Email"
-						name="email"
-						type="email"
-					/>
-					<CustomInput
-						onchange={updateUpdatePage}
-						value={password}
-						placeholder="Password"
-						password
-						name="password"
-					/>
-					<LinkDiv>
-						<CheckboxContainer>
-							<CheckboxLabel id="remember-me">Remember me</CheckboxLabel>
-							<Checkbox
-								label="Remember me"
-								id="remember-me"
-								value={isRemember}
-								onchange={handleIsRemember}
-							/>
-						</CheckboxContainer>
-						<CustomLink to="/reset-password">Forgot your password?</CustomLink>
-					</LinkDiv>
-					<Button full loading={isLoading} type="submit">
-						Login
-					</Button>
-				</form>
-				<p>
-					Don't have an account yet?{" "}
-					<CustomLink to="/register">Join Colby.io</CustomLink>
-				</p>
-			</Div>
-		</Card>
-	);
+  const handleRemember = (e) => {};
+
+  useEffect(() => {
+    const callback = (e) => {
+      if (e.key === "Enter") {
+      }
+    };
+    document.addEventListener("keypress", callback);
+    return () => {
+      document.removeEventListener("keypress", callback);
+    };
+  }, []);
+
+  return (
+    <Card width="450px" height="405px">
+      <Div>
+        <h1>Login</h1>
+        <p>Login to your account to see your projects</p>
+        <form onSubmit={handleSubmit}>
+          <CustomInput
+            onchange={handleInput}
+            value={state.email}
+            placeholder="Email"
+            name="email"
+            type="email"
+          />
+          <CustomInput
+            onchange={handleInput}
+            value={state.password}
+            placeholder="Password"
+            password
+            name="password"
+          />
+          <LinkDiv>
+            <CheckboxContainer>
+              <CheckboxLabel id="remember-me">Remember me</CheckboxLabel>
+              <Checkbox
+                label="Remember me"
+                id="remember-me"
+                value={state.isRemembered}
+                onchange={handleRemember}
+              />
+            </CheckboxContainer>
+            <CustomLink to="/reset-password">Forgot your password?</CustomLink>
+          </LinkDiv>
+          <Button full loading={state.isLoading} type="submit">
+            Login
+          </Button>
+        </form>
+        <p>
+          Don't have an account yet?{" "}
+          <CustomLink to="/register">Join Colby.io</CustomLink>
+        </p>
+      </Div>
+    </Card>
+  );
 };
 
 const Div = styled.div`
-	h1 {
-		font-size: 32px;
-		text-align: center;
-		color: ${(props) => props.theme.textColor};
-		margin-bottom: 20px;
-	}
+  h1 {
+    font-size: 32px;
+    text-align: center;
+    color: ${(props) => props.theme.textColor};
+    margin-bottom: 20px;
+  }
 
-	p {
-		text-align: center;
-		font-size: 13px;
-		color: ${(props) => props.theme.textColorLight};
-		margin-bottom: 20px;
-	}
+  p {
+    text-align: center;
+    font-size: 13px;
+    color: ${(props) => props.theme.textColorLight};
+    margin-bottom: 20px;
+  }
 
-	p {
-		margin-top: 30px;
-	}
+  p {
+    margin-top: 30px;
+  }
 `;
 
 const LinkDiv = styled.div`
-	display: flex;
-	align-items: center !important;
-	justify-content: space-between;
-	font-size: 14px;
-	margin: 10px 0 20px;
+  display: flex;
+  align-items: center !important;
+  justify-content: space-between;
+  font-size: 14px;
+  margin: 10px 0 20px;
 `;
 
 export default Login;

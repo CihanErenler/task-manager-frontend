@@ -3,59 +3,39 @@ import { motion } from "framer-motion";
 import { variants, transition } from "../App";
 import styled from "styled-components";
 import Login from "../components/Login";
-import { useAuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const sectionStyles = {
-	width: "100vw",
-	height: "calc(100vh - 60px)",
+  width: "100vw",
+  height: "calc(100vh - 60px)",
 };
 
 const LoginPage = () => {
-	const { resetCredentials, currentLocation, checkSavedUser } =
-		useAuthContext();
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
-	useEffect(() => {
-		if (currentLocation === "/dashboard") {
-			navigate("/dashboard");
-			resetCredentials();
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [currentLocation]);
-
-	useEffect(() => {
-		resetCredentials();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	useEffect(() => {
-		checkSavedUser();
-	}, []);
-
-	return (
-		<motion.section
-			style={sectionStyles}
-			variants={variants}
-			initial="hidden"
-			animate="enter"
-			exit="exit"
-			transition={transition}
-		>
-			<Div>
-				<Login />
-			</Div>
-		</motion.section>
-	);
+  return (
+    <motion.section
+      style={sectionStyles}
+      variants={variants}
+      initial="hidden"
+      animate="enter"
+      exit="exit"
+      transition={transition}
+    >
+      <Div>
+        <Login />
+      </Div>
+    </motion.section>
+  );
 };
 
 const Div = styled.div`
-	background-color: ${(props) => props.theme.bg2};
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  background-color: ${(props) => props.theme.bg2};
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default LoginPage;
