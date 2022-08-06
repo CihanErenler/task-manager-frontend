@@ -59,7 +59,13 @@ const Button = ({
 
   if (large) {
     return (
-      <StyledLongButton variant={variant} type={type} onClick={action}>
+      <StyledLongButton
+        variant={variant}
+        type={type}
+        onClick={action}
+        disabled={loading}
+        isDisabled={loading}
+      >
         {loading ? (
           <Spinner>
             <AiOutlineLoading3Quarters style={{ fontSize: 20 }} />
@@ -73,7 +79,13 @@ const Button = ({
 
   if (full) {
     return (
-      <FullButton variant={variant} type={type} onClick={action}>
+      <FullButton
+        variant={variant}
+        type={type}
+        onClick={action}
+        disabled={loading}
+        isDisabled={loading}
+      >
         {loading ? (
           <Spinner>
             <AiOutlineLoading3Quarters style={{ fontSize: 20 }} />
@@ -86,7 +98,13 @@ const Button = ({
   }
 
   return (
-    <StyledButton variant={variant} type={type} onClick={action}>
+    <StyledButton
+      variant={variant}
+      type={type}
+      onClick={action}
+      disabled={loading}
+      isDisabled={loading}
+    >
       {loading ? (
         <Spinner>
           <AiOutlineLoading3Quarters style={{ fontSize: 20 }} />
@@ -141,11 +159,29 @@ const StyledLink = styled(Link)`
 const StyledButton = styled.button`
   ${CommonStyles}
   width: 150px;
+  background-color: ${(props) =>
+    props.isDisabled ? props.theme.buttonLoading : props.theme.primary};
+  border-color: ${(props) =>
+    props.isDisabled ? props.theme.buttonLoading : props.theme.buttonHover};
+
+  :hover {
+    background-color: ${(props) =>
+      props.isDisabled ? props.theme.buttonLoading : props.theme.buttonHover};
+  }
 `;
 
 const StyledLongButton = styled.button`
   ${CommonStyles}
   width: 240px;
+  background-color: ${(props) =>
+    props.isDisabled ? props.theme.buttonLoading : props.theme.primary};
+  border-color: ${(props) =>
+    props.isDisabled ? props.theme.buttonLoading : props.theme.buttonHover};
+
+  :hover {
+    background-color: ${(props) =>
+      props.isDisabled ? props.theme.buttonLoading : props.theme.buttonHover};
+  }
 `;
 
 const StyledLongLink = styled(Link)`
@@ -161,6 +197,15 @@ const StyledFullLink = styled(Link)`
 const FullButton = styled.button`
   ${CommonStyles}
   width: 100%;
+  background-color: ${(props) =>
+    props.isDisabled ? props.theme.buttonLoading : props.theme.primary};
+  border-color: ${(props) =>
+    props.isDisabled ? props.theme.buttonLoading : props.theme.buttonHover};
+
+  :hover {
+    background-color: ${(props) =>
+      props.isDisabled ? props.theme.buttonLoading : props.theme.buttonHover};
+  }
 `;
 
 export default Button;

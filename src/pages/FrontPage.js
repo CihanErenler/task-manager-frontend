@@ -6,6 +6,7 @@ import Container from "../components/Container";
 import Button from "../components/Button";
 import hero from "../assets/hero.svg";
 import corner from "../assets/leftcorner.svg";
+import { useAuthContext } from "../context/authContext";
 
 const sectionStyles = {
   width: "100vw",
@@ -13,6 +14,7 @@ const sectionStyles = {
 };
 
 const FrontPage = () => {
+  const { user } = useAuthContext();
   return (
     <motion.section
       style={sectionStyles}
@@ -34,9 +36,13 @@ const FrontPage = () => {
               <Button link={true} long={true} to="/about">
                 About us
               </Button>
-              <Button variant="secondary" link={true} long={true} to="/login">
-                Start now
-              </Button>
+              {user ? (
+                ""
+              ) : (
+                <Button variant="secondary" link={true} long={true} to="/login">
+                  Start now
+                </Button>
+              )}
             </ButtonContainer>
           </div>
           <div>

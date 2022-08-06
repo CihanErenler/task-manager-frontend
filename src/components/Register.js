@@ -5,6 +5,7 @@ import CustomLink from "./CustomLink";
 import Button from "./Button";
 import Card from "./Card";
 import { toast } from "react-toastify";
+import { useAuthContext } from "../context/authContext";
 
 const initialState = {
   name: "",
@@ -16,6 +17,7 @@ const initialState = {
 
 const Register = () => {
   const [state, setState] = useState(initialState);
+  const { isLoading, registerUser } = useAuthContext();
 
   const handleInput = (e) => {
     const name = e.target.name;
@@ -48,7 +50,10 @@ const Register = () => {
       };
       toast.error("Please fill out all empty fields");
       setState(newState);
+      return;
     }
+
+    registerUser({ name, lastname, email, password });
   };
 
   useEffect(() => {

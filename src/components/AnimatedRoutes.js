@@ -6,7 +6,9 @@ import AboutPage from "../pages/AboutPage";
 import DashboardPage from "../pages/DashboardPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import LoginPage from "../pages/LoginPage";
+import ProtectedAuthRoute from "./ProtectedAuthRoute";
 import { AnimatePresence } from "framer-motion";
+import Protected from "./Protected";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -15,10 +17,34 @@ const AnimatedRoutes = () => {
     <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
         <Route exec path="/" element={<FrontPage />} />
-        <Route exec path="/register" element={<RegisterPage />} />
+        <Route
+          exec
+          path="/register"
+          element={
+            <ProtectedAuthRoute>
+              <RegisterPage />
+            </ProtectedAuthRoute>
+          }
+        />
+        <Route
+          exec
+          path="/login"
+          element={
+            <ProtectedAuthRoute>
+              <LoginPage />
+            </ProtectedAuthRoute>
+          }
+        />
         <Route exec path="/about" element={<AboutPage />} />
-        <Route exec path="/dashboard" element={<DashboardPage />} />
-        <Route exec path="/login" element={<LoginPage />} />
+        <Route
+          exec
+          path="/dashboard"
+          element={
+            <Protected>
+              <DashboardPage />
+            </Protected>
+          }
+        />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </AnimatePresence>

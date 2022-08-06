@@ -5,6 +5,8 @@ import AnimatedRoutes from "./components/AnimatedRoutes";
 import Header from "./components/Header";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useAuthContext } from "./context/authContext";
+import { useNavigate } from "react-router-dom";
 
 export const variants = {
   hidden: { opacity: 0 },
@@ -17,6 +19,18 @@ export const transition = { type: "linear", duration: 0.3 };
 function App() {
   const [currentTheme, setCurrentTheme] = useState(false);
   const theme = currentTheme ? themes.dark : themes.default;
+  const { getUserFromLocalStorage, user } = useAuthContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getUserFromLocalStorage();
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user]);
 
   return (
     <>

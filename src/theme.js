@@ -12,6 +12,7 @@ const themes = {
     inputBorder: "#E3E0E0",
     inputBorderFocus: "#639ec9",
     danger: "#e34444",
+    buttonLoading: "#a8c2e3",
   },
   dark: {},
 };

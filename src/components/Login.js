@@ -8,16 +8,19 @@ import CustomLink from "./CustomLink";
 import Button from "./Button";
 import Card from "./Card";
 import { toast } from "react-toastify";
+import { useAuthContext } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   email: { value: "", danger: false },
   password: { value: "", danger: false },
-  isLoading: false,
   isRemembered: false,
 };
 
 const Login = () => {
   const [state, setState] = useState(initialState);
+  const { isLoading, user, loginUser } = useAuthContext();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,7 +35,9 @@ const Login = () => {
       const newState = { ...state, email, password };
       toast.error("Please fill out all empty fields");
       setState(newState);
+      return;
     }
+    loginUser({ email: state.email.value, password: state.password.value });
   };
 
   const handleInput = (e) => {
@@ -87,7 +92,7 @@ const Login = () => {
             </CheckboxContainer>
             <CustomLink to="/reset-password">Forgot your password?</CustomLink>
           </LinkDiv>
-          <Button full loading={state.isLoading} type="submit">
+          <Button full loading={isLoading} type="submit">
             Login
           </Button>
         </form>
