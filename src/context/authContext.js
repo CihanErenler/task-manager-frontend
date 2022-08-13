@@ -2,7 +2,8 @@ import React, { useContext, useReducer } from "react";
 import reducer from "../reducers/authReducer";
 import customFetch from "../utils/db";
 import { toast } from "react-toastify";
-import { LOGIN_USER, SET_LOADING } from "../reducers/reducerTypes";
+import { useNavigate } from "react-router-dom";
+import { LOGIN_USER, LOGOUT_USER, SET_LOADING } from "../reducers/reducerTypes";
 
 const AuthContext = React.createContext();
 
@@ -31,6 +32,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER });
+    removeUserFromLocalStorage();
+    toast.success("Logged out successfully");
+  };
+
   const addUserToLocalStorage = (user) => {
     localStorage.setItem("user", JSON.stringify(user));
   };
@@ -54,6 +61,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         ...state,
         loginUser,
+        logoutUser,
         registerUser,
         addUserToLocalStorage,
         removeUserFromLocalStorage,

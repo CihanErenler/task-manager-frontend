@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "./Avatar";
 import styled from "styled-components";
+import Notification from "./Notification";
+import ProfileDropdown from "./ProfileDropdown";
 
 const HeaderProfile = ({ name, lastname }) => {
+  const [showProfile, setShowProfile] = useState(false);
+
+  const handleProfile = () => {
+    setShowProfile(!showProfile);
+  };
   const fullName = `${name} ${lastname}`;
   return (
     <Div>
-      <Avatar alt={fullName} />
-      <span>{name}</span>
+      <Notification />
+      <Avatar alt={fullName} action={handleProfile} />
+      {showProfile ? <ProfileDropdown fullName={fullName} /> : ""}
     </Div>
   );
 };
@@ -16,11 +24,7 @@ const Div = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  span {
-    font-weight: bold;
-    color: ${(props) => props.theme.textColor};
-  }
+  position: relative;
 `;
 
 export default HeaderProfile;

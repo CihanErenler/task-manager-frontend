@@ -16,7 +16,7 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
-        <Route exec path="/" element={<FrontPage />} />
+        <Route exec path="/landing" element={<FrontPage />} />
         <Route
           exec
           path="/register"
@@ -38,7 +38,7 @@ const AnimatedRoutes = () => {
         <Route exec path="/about" element={<AboutPage />} />
         <Route
           exec
-          path="/dashboard"
+          path="/"
           element={
             <Protected>
               <DashboardPage />

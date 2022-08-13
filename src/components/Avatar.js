@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Avatar = ({ src, alt, bg, size }) => {
+const Avatar = ({ src, alt, bg, size, action }) => {
   const firstLetters = alt
     .split(" ")
     .map((item) => item.charAt(0))
@@ -10,13 +10,13 @@ const Avatar = ({ src, alt, bg, size }) => {
 
   if (src) {
     return (
-      <Div size={size}>
+      <Div size={size} onClick={action}>
         <img src={src} alt={alt} />
       </Div>
     );
   }
   return (
-    <Letters size={size} bg={bg}>
+    <Letters size={size} bg={bg} onClick={action}>
       {firstLetters}
     </Letters>
   );
@@ -33,6 +33,7 @@ const Letters = styled.div`
   justify-content: center;
   margin-right: 10px;
   font-size: 18px;
+  cursor: pointer;
 `;
 
 const Div = styled(Letters)`
@@ -40,6 +41,7 @@ const Div = styled(Letters)`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
   }
 `;
 
