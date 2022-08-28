@@ -3,12 +3,12 @@ import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../context/authContext";
 
 const ProtectedAuthRoute = ({ children }) => {
-  const { user } = useAuthContext();
-  if (user) {
-    return <Navigate to="/dashboard" />;
-  }
+	const { user } = useAuthContext();
+	if (user) {
+		return <Navigate to="/" />;
+	}
 
-  return children;
+	return children;
 };
 
 export default ProtectedAuthRoute;

@@ -12,7 +12,7 @@ const Card = ({ height, width, children }) => {
 const Section = styled.section`
 	background-color: ${(props) => props.theme.bg1};
 	padding: 20px;
-	border-radius: 10px;
+	border-radius: 20px;
 	width: ${(props) => props.width && props.width};
 	max-width: ${(props) => props.width && props.width};
 	height: ${(props) => props.height && props.height};

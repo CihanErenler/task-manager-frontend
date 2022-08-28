@@ -1,48 +1,46 @@
 import React from "react";
 import styled from "styled-components";
 
-const Avatar = ({ src, alt, bg, size, action }) => {
-  const firstLetters = alt
-    .split(" ")
-    .map((item) => item.charAt(0))
-    .join("")
-    .toUpperCase();
+const Avatar = ({ src, alt, bg, size, action, buttonRef }) => {
+	const firstLetters = alt
+		.split(" ")
+		.map((item) => item.charAt(0))
+		.join("")
+		.toUpperCase();
 
-  if (src) {
-    return (
-      <Div size={size} onClick={action}>
-        <img src={src} alt={alt} />
-      </Div>
-    );
-  }
-  return (
-    <Letters size={size} bg={bg} onClick={action}>
-      {firstLetters}
-    </Letters>
-  );
+	return (
+		<StyledAvatar size={size} onClick={action} bg={bg} ref={buttonRef}>
+			{src ? <img src={src} alt={alt} /> : firstLetters}
+		</StyledAvatar>
+	);
 };
 
-const Letters = styled.div`
-  width: ${(props) => (props.size ? props.size : "35px")};
-  height: ${(props) => (props.size ? props.size : "35px")};
-  background-color: ${(props) => (props.bg ? props.bg : props.theme.primary)};
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-  font-size: 18px;
-  cursor: pointer;
-`;
+const StyledAvatar = styled.button`
+	width: ${(props) => (props.size ? props.size : "35px")};
+	height: ${(props) => (props.size ? props.size : "35px")};
+	background-color: ${(props) => (props.bg ? props.bg : props.theme.primary)};
+	color: #fff;
+	border: none;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 10px;
+	font-size: 18px;
+	cursor: pointer;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 
-const Div = styled(Letters)`
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    cursor: pointer;
-  }
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		cursor: pointer;
+	}
 `;
 
 export default Avatar;
