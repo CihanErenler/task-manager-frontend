@@ -9,50 +9,51 @@ import { useAuthContext } from "./context/authContext";
 import { useNavigate } from "react-router-dom";
 
 export const variants = {
-  hidden: { opacity: 0 },
-  enter: { opacity: 1 },
-  exit: { opacity: 0 },
+	hidden: { opacity: 0 },
+	enter: { opacity: 1 },
+	exit: { opacity: 0 },
 };
 
 export const transition = { type: "linear", duration: 0.3 };
 
 function App() {
-  const [currentTheme, setCurrentTheme] = useState(false);
-  const theme = currentTheme ? themes.dark : themes.default;
-  const { getUserFromLocalStorage, user } = useAuthContext();
-  const navigate = useNavigate();
+	const [currentTheme, setCurrentTheme] = useState(false);
+	const theme = currentTheme ? themes.dark : themes.default;
+	const { getUserFromLocalStorage, user } = useAuthContext();
+	const navigate = useNavigate();
 
-  useEffect(() => {
-    getUserFromLocalStorage();
-  }, []);
+	useEffect(() => {
+		getUserFromLocalStorage();
+	}, []);
 
-  useEffect(() => {
-    if (user) {
-      navigate("/", { replace: true });
-    }
-  }, [user]);
+	useEffect(() => {
+		if (user) {
+			navigate("/");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [user]);
 
-  return (
-    <>
-      <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <Header />
-        <AnimatedRoutes />
-      </ThemeProvider>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={true}
-        transition={Slide}
-        rtl={false}
-        closeOnClick
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-    </>
-  );
+	return (
+		<>
+			<GlobalStyle />
+			<ThemeProvider theme={theme}>
+				<Header />
+				<AnimatedRoutes />
+			</ThemeProvider>
+			<ToastContainer
+				position="bottom-right"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={true}
+				transition={Slide}
+				rtl={false}
+				closeOnClick
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+			/>
+		</>
+	);
 }
 
 const GlobalStyle = createGlobalStyle`

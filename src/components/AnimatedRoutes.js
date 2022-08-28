@@ -9,46 +9,49 @@ import LoginPage from "../pages/LoginPage";
 import ProtectedAuthRoute from "./ProtectedAuthRoute";
 import { AnimatePresence } from "framer-motion";
 import Protected from "./Protected";
+import AuthWrapper from "../pages/AuthWrapper";
 
 const AnimatedRoutes = () => {
-  const location = useLocation();
+	const location = useLocation();
 
-  return (
-    <AnimatePresence exitBeforeEnter>
-      <Routes location={location} key={location.pathname}>
-        <Route exec path="/landing" element={<FrontPage />} />
-        <Route
-          exec
-          path="/register"
-          element={
-            <ProtectedAuthRoute>
-              <RegisterPage />
-            </ProtectedAuthRoute>
-          }
-        />
-        <Route
-          exec
-          path="/login"
-          element={
-            <ProtectedAuthRoute>
-              <LoginPage />
-            </ProtectedAuthRoute>
-          }
-        />
-        <Route exec path="/about" element={<AboutPage />} />
-        <Route
-          exec
-          path="/"
-          element={
-            <Protected>
-              <DashboardPage />
-            </Protected>
-          }
-        />
-        <Route path="/*" element={<NotFoundPage />} />
-      </Routes>
-    </AnimatePresence>
-  );
+	return (
+		<AnimatePresence exitBeforeEnter>
+			<AuthWrapper>
+				<Routes location={location} key={location.pathname}>
+					<Route exec path="/landing" element={<FrontPage />} />
+					<Route
+						exec
+						path="/register"
+						element={
+							<ProtectedAuthRoute>
+								<RegisterPage />
+							</ProtectedAuthRoute>
+						}
+					/>
+					<Route
+						exec
+						path="/login"
+						element={
+							<ProtectedAuthRoute>
+								<LoginPage />
+							</ProtectedAuthRoute>
+						}
+					/>
+					<Route exec path="/about" element={<AboutPage />} />
+					<Route
+						exec
+						path="/"
+						element={
+							<Protected>
+								<DashboardPage />
+							</Protected>
+						}
+					/>
+					<Route path="/*" element={<NotFoundPage />} />
+				</Routes>
+			</AuthWrapper>
+		</AnimatePresence>
+	);
 };
 
 export default AnimatedRoutes;
