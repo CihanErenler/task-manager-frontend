@@ -17,6 +17,10 @@ const Section = styled.section`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+
+	span {
+		color: ${(props) => props.theme.textColor};
+	}
 `;
 
 export default DropdownItem;

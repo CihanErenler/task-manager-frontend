@@ -50,7 +50,7 @@ const ProfileDropdown = ({ fullName, handleProfile, buttonRef }) => {
 					</CustomLink>
 				</div>
 				<div className="logout-btn" onClick={logoutUser}>
-					Log uot
+					Log out
 				</div>
 			</Div>
 		</motion.div>
@@ -65,15 +65,17 @@ const Div = styled.div`
 	right: 10px;
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
 		rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-	padding-top: 20px;
+	padding: 20px 0;
 	font-size: 14px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 
 	.link {
 		padding: 0 20px;
 	}
 
 	> div {
-		margin-bottom: 20px;
 		padding: 0 20px;
 		transition: all 0.3s ease;
 		color: ${(props) => props.theme.textColor};
@@ -102,10 +104,6 @@ const Div = styled.div`
 				letter-spacing: 1px;
 			}
 		}
-	}
-
-	.dropdown-item {
-		margin-bottom: 8px;
 	}
 `;
 

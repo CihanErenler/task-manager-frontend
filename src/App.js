@@ -64,8 +64,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html, body {
-    font-family: 'Fira Code', monospace;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   a {

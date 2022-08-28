@@ -9,7 +9,7 @@ const Div = styled.div`
 	height: 1px;
 	background-color: ${(props) => props.theme.inputBorder};
 	width: 100%;
-	margin: 20px 0;
+	margin: 10px 0;
 	cursor: none;
 `;
 
