@@ -27,7 +27,7 @@ const StyledToggle = styled.div`
 		transition: all 0.3s ease;
 
 		:hover {
-			border-color: ${(props) => props.theme.textColorLight};
+			border-color: ${(props) => props.theme.buttonFocus};
 		}
 
 		::before {

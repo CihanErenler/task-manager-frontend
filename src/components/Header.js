@@ -6,18 +6,20 @@ import Container from "./Container";
 import Button from "./Button";
 import { useAuthContext } from "../context/authContext";
 import HeaderProfile from "./HeaderProfile";
+import { useLocation } from "react-router-dom";
+import { useDashboardContext } from "../context/dashboardContext";
+import Logo from "./Logo";
 
 const Header = () => {
 	const { user } = useAuthContext();
+	const location = useLocation();
+	const { currentContentName } = useDashboardContext();
+
 	return (
-		<StyledHeader>
+		<StyledHeader location={location.pathname}>
 			<Container>
-				<StyledFlex>
-					<ImageContainer>
-						<Link to="/">
-							<Image src={logo} />
-						</Link>
-					</ImageContainer>
+				<div className="navbar">
+					{!user ? <Logo /> : <h1>{currentContentName}</h1>}
 					<StyledNav>
 						{!user ? (
 							<>
@@ -34,7 +36,7 @@ const Header = () => {
 							""
 						)}
 					</StyledNav>
-				</StyledFlex>
+				</div>
 			</Container>
 		</StyledHeader>
 	);
@@ -43,19 +45,21 @@ const Header = () => {
 const StyledHeader = styled.header`
 	height: 60px;
 	width: 100%;
-`;
+	border-bottom: ${(props) =>
+		props.location !== "/landing" ? `1px solid ${props.theme.border}` : "none"};
 
-const ImageContainer = styled.div`
-	height: 100%;
-	display: flex;
-	align-items: center;
-`;
+	.navbar {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
 
-const StyledFlex = styled.div`
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	h1 {
+		color: ${(props) => props.theme.textColor};
+		font-size: 24px;
+		font-weight: 600;
+	}
 `;
 
 const StyledLink = styled(Link)`
@@ -69,10 +73,6 @@ const StyledLink = styled(Link)`
 	&:hover {
 		color: ${(props) => props.theme.primary};
 	}
-`;
-
-const Image = styled.img`
-	width: 130px;
 `;
 
 const StyledNav = styled.nav`

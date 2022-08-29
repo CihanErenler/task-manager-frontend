@@ -37,7 +37,8 @@ function App() {
 		<>
 			<GlobalStyle />
 			<ThemeProvider theme={theme}>
-				<Header />
+				{!user ? <Header /> : ""}
+
 				<AnimatedRoutes />
 			</ThemeProvider>
 			<ToastContainer

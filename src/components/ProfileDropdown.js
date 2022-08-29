@@ -29,7 +29,7 @@ const ProfileDropdown = ({ fullName, handleProfile, buttonRef }) => {
 			key="profile-dropdown"
 			initial={{ scale: 0.9, opacity: 0, y: 30 }}
 			animate={{ scale: 1, opacity: 1 }}
-			transition={{ duration: 0.2, ease: "easeInOut" }}
+			transition={{ duration: 0.3, type: "spring", bounce: 0.5 }}
 			exit={{ scale: 0.9, opacity: 0 }}
 		>
 			<Div ref={sectionRef}>
@@ -63,7 +63,7 @@ const Div = styled.div`
 	background-color: ${(props) => props.theme.bg1};
 	border-radius: 20px;
 	right: 10px;
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+	box-shadow: rgba(50, 50, 93, 0.1) 0px 6px 12px -2px,
 		rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 	padding: 20px 0;
 	font-size: 14px;

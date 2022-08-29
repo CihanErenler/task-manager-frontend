@@ -8,7 +8,9 @@ const CustomInput = ({
 	placeholder,
 	password,
 	name,
+	full,
 	type,
+	search,
 }) => {
 	const [show, setShow] = useState();
 
@@ -32,6 +34,19 @@ const CustomInput = ({
 				) : (
 					<BiShow onClick={handleShow} />
 				)}
+			</Section>
+		);
+	}
+
+	if (search) {
+		return (
+			<Section>
+				<TextInput
+					onChange={onchange}
+					value={value}
+					type={type}
+					placeholder={placeholder}
+				/>
 			</Section>
 		);
 	}

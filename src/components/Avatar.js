@@ -34,6 +34,11 @@ const StyledAvatar = styled.button`
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	transition: all 0.3s ease;
+
+	:focus {
+		box-shadow: 0 0 0 4px ${(props) => props.theme.buttonFocus};
+	}
 
 	img {
 		width: 100%;
